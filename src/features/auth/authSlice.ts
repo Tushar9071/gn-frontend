@@ -4,7 +4,7 @@ import {
   loadUserfromLocalStorage,
   saveUserinLocalStorage,
 } from "../../utils/localstorage";
-import Cookies from "js-cookie";
+import * as Cookies from "js-cookie";
 const initialState: AuthState = {
   username: "",
   role: "",
@@ -24,7 +24,7 @@ const authSlice = createSlice({
         username: state.username,
         role: state.role,
       });
-      Cookies.set("token", state.token);
+      Cookies.set("token", state.token || "");
     },
     logout: (state) => {
       state.username = "";
