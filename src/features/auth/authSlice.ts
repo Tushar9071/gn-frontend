@@ -4,7 +4,8 @@ import {
   loadUserfromLocalStorage,
   saveUserinLocalStorage,
 } from "../../utils/localstorage";
-import * as Cookies from "js-cookie";
+import { useCookies } from "react-cookie";
+const [cookies, setCookie, removerCookie] = useCookies(["token"]);
 const initialState: AuthState = {
   username: "",
   role: "",
@@ -24,22 +25,23 @@ const authSlice = createSlice({
         username: state.username,
         role: state.role,
       });
-      Cookies.set("token", state.token || "");
+      setCookie("token", state.token || "");
     },
     logout: (state) => {
       state.username = "";
       state.role = "";
       state.token = "";
+      removerCookie("token");
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
     checkUserHaveLogedIn: (state) => {
       const user = loadUserfromLocalStorage("user");
-      const token = Cookies.get("token");
+      const token = cookies.token;
       if (user && token) {
         state.username = user.username;
-        state.role = user.username;
+        state.role = user.role;
         state.token = token;
       }
     },
