@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const InitialState = {
   extendedMenu: true,
-  selectedItem: 1,
+  selectedItem: -1,
 };
 
 const uiSlice = createSlice({

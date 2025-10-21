@@ -4,26 +4,38 @@ import { useAppDispatch } from "../hooks/useAppDispatch";
 import { useAppSelector } from "../hooks/useAppSelector";
 import { setSelectedItem } from "../features/ui-state/uiSlice";
 import roleFeature from "../utils/rolefeatures";
+// import { Children, type ReactNode } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
   const { selectedItem } = useAppSelector((state) => state.sidebar);
   const { role } = useAppSelector((state) => state.auth);
   const roleFeatures = roleFeature({ key: role || "" });
+  const navigate = useNavigate();
   return (
     <>
-      <SideBar>
-        {roleFeatures.map((features, index) => (
-          <button onClick={() => dispatch(setSelectedItem(index))} key={index}>
-            <SideBarItem
-              icon={features.element}
-              text={features.feature}
-              active={selectedItem === index}
-              // alert={true}
-            ></SideBarItem>
-          </button>
-        ))}
-        {/* <button onClick={() => dispatch(setSelectedItem(1))}>
+      <div className="flex flex-row">
+        <SideBar>
+          {roleFeatures.map((features, index) => (
+            <button
+              onClick={() => {
+                dispatch(setSelectedItem(index));
+                navigate(
+                  `/${features.feature.replace(/\s+/g, "-").toLowerCase()}`
+                );
+              }}
+              key={index}
+            >
+              <SideBarItem
+                icon={features.logo}
+                text={features.feature}
+                active={selectedItem === index}
+                // alert={true}
+              ></SideBarItem>
+            </button>
+          ))}
+          {/* <button onClick={() => dispatch(setSelectedItem(1))}>
           <SideBarItem
             icon={<PiStudent />}
             text={"Student"}
@@ -52,7 +64,12 @@ const Dashboard = () => {
             active={selectedItem === 4}
           ></SideBarItem>
         </button> */}
-      </SideBar>
+        </SideBar>
+        <div className="bg-pink-100 w-full h-screen">
+          {/* {Children} */}
+          <Outlet />
+        </div>
+      </div>
     </>
   );
 };
