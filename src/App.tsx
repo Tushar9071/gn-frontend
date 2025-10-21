@@ -1,22 +1,41 @@
-import { Route, Routes } from "react-router-dom";
-// import Dashboard from "./dashboard/Dashboard";
+import { useEffect } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Dashboard from "./dashboard/Dashboard";
 import Login from "./auth/Login";
+import ForgotPassword from "./auth/ForgotPassword";
+import { useAppSelector } from "./hooks/useAppSelector";
 import { useAppDispatch } from "./hooks/useAppDispatch";
 import { checkUserHaveLogedIn } from "./features/auth/authSlice";
-import ForgotPassword from "./auth/ForgotPassword";
 
 function App() {
-  const distch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(checkUserHaveLogedIn());
+  }, [dispatch]);
+  const { username, role, token } = useAppSelector((state) => state.auth);
 
-  distch(checkUserHaveLogedIn());
+  const checkIsLoggedIn = () => {
+    if (username !== "" && role !== "" && token !== "") {
+      return true;
+    }
+    return false;
+  };
+
   return (
-    <>
-      <Routes>
-        {/* <Route path="/" element={<Dashboard/>}></Route> */}
-        <Route path="/" element={<Login />}></Route>
-        <Route path="/forgot-password" element={<ForgotPassword />}></Route>
-      </Routes>
-    </>
+    <Routes>
+      <Route
+        path="/login"
+        element={checkIsLoggedIn() ? <Navigate to="/" /> : <Login />}
+      />
+      <Route
+        path="/forgot-password"
+        element={checkIsLoggedIn() ? <Navigate to="/" /> : <ForgotPassword />}
+      />
+      <Route
+        path="/"
+        element={checkIsLoggedIn() ? <Dashboard /> : <Navigate to="/login" />}
+      />
+    </Routes>
   );
 }
 

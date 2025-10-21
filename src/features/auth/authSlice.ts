@@ -4,41 +4,41 @@ import {
   loadUserfromLocalStorage,
   saveUserinLocalStorage,
 } from "../../utils/localstorage";
-import { useCookies } from "react-cookie";
-const [cookies, setCookie, removerCookie] = useCookies(["token"]);
+import { CookieService } from "../../utils/cookies";
 const initialState: AuthState = {
   username: "",
   role: "",
   token: "",
   loading: false,
 };
-
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     login: (state, action: PayloadAction<LoginPayload>) => {
-      (state.username = action.payload.username),
-        (state.role = action.payload.role),
-        (state.token = action.payload.token);
+      state.username = action.payload.username;
+      state.role = action.payload.role;
+      state.token = action.payload.token;
+
       saveUserinLocalStorage("user", {
         username: state.username,
         role: state.role,
       });
-      setCookie("token", state.token || "");
+
+      CookieService.set("token", state.token || "", { path: "/" });
     },
     logout: (state) => {
       state.username = "";
       state.role = "";
       state.token = "";
-      removerCookie("token");
+      CookieService.remove("token");
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
     checkUserHaveLogedIn: (state) => {
       const user = loadUserfromLocalStorage("user");
-      const token = cookies.token;
+      const token = CookieService.get("token");
       if (user && token) {
         state.username = user.username;
         state.role = user.role;
@@ -50,4 +50,5 @@ const authSlice = createSlice({
 
 export const { login, logout, setLoading, checkUserHaveLogedIn } =
   authSlice.actions;
+
 export default authSlice.reducer;
