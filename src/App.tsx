@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Dashboard from "./dashboard/Dashboard";
+import Dashboard from "./dashboard/MainDashboard";
 import Login from "./auth/Login";
 import ForgotPassword from "./auth/ForgotPassword";
 import { useAppSelector } from "./hooks/useAppSelector";

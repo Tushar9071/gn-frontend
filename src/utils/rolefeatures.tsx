@@ -1,36 +1,48 @@
 import type { JSX } from "react";
-import { CgLivePhoto } from "react-icons/cg";
-import {
-  MdOutlineUpcoming,
-  MdManageAccounts,
-  MdViewInAr,
-  MdMeetingRoom,
-} from "react-icons/md";
-import { IoMdCloudDone } from "react-icons/io";
-import CurrentProjects from "../dashboard/components/CurrentProjects";
+import { MdManageAccounts, MdViewInAr, MdOutlineSaveAlt } from "react-icons/md";
+import { IoMdHome } from "react-icons/io";
+import { FaBookAtlas, FaPeopleGroup } from "react-icons/fa6";
+import { GoReport } from "react-icons/go";
+import Dashboard from "../dashboard/components/student/Dashboard";
+import MyProjectGroup from "../dashboard/components/student/MyProjectGroup";
 
 const roleFeatures = ({ key }: { key?: string }) => {
   const featuresMap: { [key: string]: string[] } = {
-    student: ["current projects", "upcoming projects", "submit work"],
-    faculty: ["Manage Student", "View Project", "Meetings"],
+    student: [
+      "Dashboard",
+      "My Project Groups",
+      "Submit Project",
+      "Reports",
+      "Meetings",
+    ],
+    faculty: [
+      "Dashboard",
+      "My Project Groups",
+      "Submissions",
+      "Reports",
+      "Meetings",
+    ],
   };
 
   const featuresLogoMap: Record<string, JSX.Element> = {
-    "current projects": <CgLivePhoto />,
-    "upcoming projects": <MdOutlineUpcoming />,
-    "submit work": <IoMdCloudDone />,
+    Dashboard: <IoMdHome />,
+    "My Project Groups": <FaBookAtlas />,
+    "Submit Project": <MdOutlineSaveAlt />,
+    Submissions: <MdOutlineSaveAlt />,
+    Reports: <GoReport />,
     "Manage Student": <MdManageAccounts />,
     "View Project": <MdViewInAr />,
-    Meetings: <MdMeetingRoom />,
+    Meetings: <FaPeopleGroup />,
   };
 
   const featuresElementsMap: Record<string, JSX.Element> = {
-    "current projects": <CurrentProjects />,
-    "upcoming projects": <MdOutlineUpcoming />,
-    "submit work": <IoMdCloudDone />,
+    Dashboard: <Dashboard />,
+    "My Project Groups": <MyProjectGroup />,
+    "Submit Project": <MdOutlineSaveAlt />,
+    Reports: <GoReport />,
     "Manage Student": <MdManageAccounts />,
     "View Project": <MdViewInAr />,
-    Meetings: <MdMeetingRoom />,
+    Meetings: <FaPeopleGroup />,
   };
   const features = featuresMap[key || ""] || [];
   const featuresList = features.map((feature) => ({

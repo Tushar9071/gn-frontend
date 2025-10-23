@@ -65,7 +65,7 @@ const Dashboard = () => {
           ></SideBarItem>
         </button> */}
         </SideBar>
-        <div className="bg-pink-100 w-full h-screen">
+        <div className="w-full">
           {/* {Children} */}
           <Outlet />
         </div>
