@@ -6,6 +6,7 @@ import { GoReport } from "react-icons/go";
 import Dashboard from "../dashboard/components/student/Dashboard";
 import MyProjectGroup from "../dashboard/components/student/MyProjectGroup";
 import SubmitProject from "../dashboard/components/student/SubmitProject";
+import Meetings from "../dashboard/components/student/Meetings";
 
 const roleFeatures = ({ key }: { key?: string }) => {
   const featuresMap: { [key: string]: string[] } = {
@@ -13,7 +14,7 @@ const roleFeatures = ({ key }: { key?: string }) => {
       "Dashboard",
       "My Project Groups",
       "Submit Project",
-      "Reports",
+      // "Reports",
       "Meetings",
     ],
     faculty: [
@@ -43,7 +44,7 @@ const roleFeatures = ({ key }: { key?: string }) => {
     Reports: <GoReport />,
     "Manage Student": <MdManageAccounts />,
     "View Project": <MdViewInAr />,
-    Meetings: <FaPeopleGroup />,
+    Meetings: <Meetings />,
   };
   const features = featuresMap[key || ""] || [];
   const featuresList = features.map((feature) => ({
