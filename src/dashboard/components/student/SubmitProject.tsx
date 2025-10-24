@@ -94,7 +94,7 @@ const SubmitProject = () => {
           </div>
         </div>
       </div>
-      <div className="bg-gray-100 p-4">
+      <div className="bg-gray-50 p-4">
         <label className="font-semibold mb-2 block">
           Project Link (if any like github):
         </label>
