@@ -5,6 +5,7 @@ import { FaBookAtlas, FaPeopleGroup } from "react-icons/fa6";
 import { GoReport } from "react-icons/go";
 import Dashboard from "../dashboard/components/student/Dashboard";
 import MyProjectGroup from "../dashboard/components/student/MyProjectGroup";
+import SubmitProject from "../dashboard/components/student/SubmitProject";
 
 const roleFeatures = ({ key }: { key?: string }) => {
   const featuresMap: { [key: string]: string[] } = {
@@ -38,7 +39,7 @@ const roleFeatures = ({ key }: { key?: string }) => {
   const featuresElementsMap: Record<string, JSX.Element> = {
     Dashboard: <Dashboard />,
     "My Project Groups": <MyProjectGroup />,
-    "Submit Project": <MdOutlineSaveAlt />,
+    "Submit Project": <SubmitProject />,
     Reports: <GoReport />,
     "Manage Student": <MdManageAccounts />,
     "View Project": <MdViewInAr />,
