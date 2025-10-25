@@ -1,49 +1,74 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../../../components/ui/Card";
 import Dropdown from "../../../components/ui/Dropdown";
 import toast, { Toaster } from "react-hot-toast";
+import { useFetchApi } from "../../../hooks/useFetchApi";
+import { CookieService } from "../../../utils/cookies";
+import Loading from "../../../components/ui/Loading";
 
 const MyProjectGroup = () => {
   const projectsType = ["Major Project", "Mini Project", "Research Project"];
   const studentsList = ["Student 1", "Student 2", "Student 3"];
   const [selectedType, setSelectedType] = useState("");
   const [selectedProject, setSelectedProject] = useState("");
-  const projects = [
-    {
-      type: "Major Project",
-      names: [
-        "AI-Powered Disease Prediction System",
-        "Smart City Traffic Management Using IoT",
-        "Blockchain-Based Voting Application",
-        "Cloud-Based Inventory Management System",
-        "Autonomous Drone Navigation System",
-      ],
-    },
-    {
-      type: "Mini Project",
-      names: [
-        "Student Attendance Tracker",
-        "Weather Forecast Dashboard",
-        "Expense Management App",
-        "Chat Application Using Socket.io",
-        "Portfolio Website with React",
-      ],
-    },
-    {
-      type: "Research Project",
-      names: [
-        "Deep Learning for Image Captioning",
-        "Quantum Computing Simulation Analysis",
-        "Ethical AI and Data Privacy Study",
-        "Renewable Energy Optimization Model",
-        "5G Network Security Evaluation",
-      ],
-    },
-  ];
+  const [callApi, pending, response] = useFetchApi();
+  const [projects, setProjects] = useState([]);
 
-  const flattenedProjects = projects.flatMap((project) =>
-    project.type === selectedType ? project.names : []
-  );
+  useEffect(() => {
+    callApi("/api/CLProjectType/getall", {
+      headers: { Authorization: `Bearer ${CookieService.get("token")}` },
+    });
+  }, []);
+
+  useEffect(() => {
+    if (response?.data) {
+      setProjects(response.data);
+    }
+  }, [response]);
+
+  // const projects = [
+  //   {
+  //     type: "Major Project",
+  //     names: [
+  //       "AI-Powered Disease Prediction System",
+  //       "Smart City Traffic Management Using IoT",
+  //       "Blockchain-Based Voting Application",
+  //       "Cloud-Based Inventory Management System",
+  //       "Autonomous Drone Navigation System",
+  //     ],
+  //   },
+  //   {
+  //     type: "Mini Project",
+  //     names: [
+  //       "Student Attendance Tracker",
+  //       "Weather Forecast Dashboard",
+  //       "Expense Management App",
+  //       "Chat Application Using Socket.io",
+  //       "Portfolio Website with React",
+  //     ],
+  //   },
+  //   {
+  //     type: "Research Project",
+  //     names: [
+  //       "Deep Learning for Image Captioning",
+  //       "Quantum Computing Simulation Analysis",
+  //       "Ethical AI and Data Privacy Study",
+  //       "Renewable Energy Optimization Model",
+  //       "5G Network Security Evaluation",
+  //     ],
+  //   },
+  // ];
+
+  // if (projects) {
+  //   const flattenedProjects = projects.flatMap((project) =>
+  //     project.type === selectedType ? project.names : []
+  //   );
+  // }
+
+  if (pending) {
+    return <Loading width={60} height={60} />;
+  }
+
   const newStudentHandler = (studentname: string) => {
     toast(
       (t) => (
@@ -75,6 +100,10 @@ const MyProjectGroup = () => {
     console.log("Adding new student: ", studentname);
   };
 
+  const ProjectTypeList = projects.map(
+    (project: any) => project.projectTypeName
+  );
+
   return (
     <div className="h-full w-full">
       <Toaster position="top-right" />
@@ -86,13 +115,13 @@ const MyProjectGroup = () => {
           {" "}
           Project Type:
           <Dropdown
-            projects={projectsType}
+            data={ProjectTypeList}
             selected={selectedType}
             setSelected={setSelectedType}
             disabled={false}
           />
         </div>
-        <div className="w-full items-center flex justify-center gap-1">
+        {/* <div className="w-full items-center flex justify-center gap-1">
           {" "}
           Select Your Project:
           <Dropdown
@@ -102,12 +131,12 @@ const MyProjectGroup = () => {
             disabled={selectedType === "" ? true : false}
             errorMessage="Please select project type first!"
           />
-        </div>
+        </div> */}
         <div className="w-full items-center flex justify-center gap-1">
           {" "}
           Add Team Member:
           <Dropdown
-            projects={studentsList}
+            data={studentsList}
             selected={""}
             setSelected={newStudentHandler}
             disabled={selectedProject === "" ? true : false}
@@ -170,7 +199,7 @@ function PendingInvitations() {
         <h2 className="text-center h-full">Pending Invitations</h2>
       </div>
       <div className="flex flex-col items-center justify-start p-4 font-medium gap-4">
-        <div className="bg-gray-50 p-4 flex gap-6 rounded-2xl shadow-md hover:shadow-lg transition-all cursor-pointer flex-row items-center hover:bg-gray-100 duration-300">
+        <div className="bg-gray-50 p-4 grid gap-6 rounded-2xl shadow-md hover:shadow-lg transition-all cursor-pointer grid-cols-1 items-center hover:bg-gray-100 duration-300 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 place-items-center">
           <img
             src={"https://avatar.iran.liara.run/username?username=J+D"}
             alt=""
@@ -186,15 +215,17 @@ function PendingInvitations() {
               AI-Powered Disease Prediction System
             </label>
           </div>
-          <div className="flex flex-col leading-4 items-center">
-            <button className="bg-green-500 py-3 px-5 rounded-2xl text-white hover:shadow-lg transition-all duration-300 hover:bg-green-600">
-              Accept
-            </button>
-          </div>
-          <div className="flex flex-col leading-4 items-center">
-            <button className="bg-red-500 py-3 px-5 rounded-2xl text-white hover:shadow-lg transition-all duration-300 hover:bg-red-600">
-              Reject
-            </button>
+          <div className="flex flex-row gap-5 w-full items-center justify-center md:col-span-3 lg:col-span-1">
+            <div className="flex flex-col leading-4 items-center">
+              <button className="bg-green-500 py-3 px-5 rounded-2xl text-white hover:shadow-lg transition-all duration-300 hover:bg-green-600">
+                Accept
+              </button>
+            </div>
+            <div className="flex flex-col leading-4 items-center ">
+              <button className="bg-red-500 py-3 px-5 rounded-2xl text-white hover:shadow-lg transition-all duration-300 hover:bg-red-600">
+                Reject
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -2,14 +2,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 const Dropdown = ({
-  projects,
+  data,
   selected,
   setSelected,
   disabled,
   addNewOption,
   errorMessage,
 }: {
-  projects: string[];
+  data: string[];
   selected: string;
   setSelected: any;
   disabled: any;
@@ -18,7 +18,7 @@ const Dropdown = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const filteredOptions = projects.filter((option) =>
+  const filteredOptions = data.filter((option) =>
     option.toLowerCase().includes(search.toLowerCase())
   );
   return (
@@ -28,7 +28,9 @@ const Dropdown = ({
           if (!disabled) {
             return setIsOpen(!isOpen);
           }
-          toast.error(errorMessage || "Fill Other Details First");
+          toast.error(errorMessage || "Fill Other Details First", {
+            duration: 1500,
+          });
         }}
         className="border border-gray-300 rounded-md px-3 py-2 cursor-pointer bg-white flex justify-between items-center"
       >

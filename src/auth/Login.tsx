@@ -12,9 +12,8 @@ import { FaEyeSlash } from "react-icons/fa";
 const Login = () => {
   const dispatch = useAppDispatch();
   const { username, role, token } = useAppSelector((state) => state.auth);
-  const { callApi, pending, response } = useFetchApi();
+  const [callApi, , response] = useFetchApi();
   const [showPassword, setShowPassword] = useState(false);
-  console.log(pending);
   const [loginrole, setLoginrole] = useState("student");
   const [toastId, setToastId] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -67,7 +66,6 @@ const Login = () => {
   }, [response]);
   useEffect(() => {
     if (username && role && token) {
-      console.log("Already logged in");
       navigate("/", { replace: true });
     }
   }, [username, role, token, navigate]);
