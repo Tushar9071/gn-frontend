@@ -7,10 +7,10 @@ import { CookieService } from "../../../utils/cookies";
 import Loading from "../../../components/ui/Loading";
 
 const MyProjectGroup = () => {
-  const projectsType = ["Major Project", "Mini Project", "Research Project"];
+  // const projectsType = ["Major Project", "Mini Project", "Research Project"];
   const studentsList = ["Student 1", "Student 2", "Student 3"];
   const [selectedType, setSelectedType] = useState("");
-  const [selectedProject, setSelectedProject] = useState("");
+  const [selectedProject, ] = useState("");
   const [callApi, pending, response] = useFetchApi();
   const [projects, setProjects] = useState([]);
 

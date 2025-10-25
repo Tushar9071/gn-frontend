@@ -1,4 +1,4 @@
-import { useEffect, type JSX } from "react";
+import { type JSX } from "react";
 import { MdManageAccounts, MdViewInAr, MdOutlineSaveAlt } from "react-icons/md";
 import { IoMdHome } from "react-icons/io";
 import { FaBookAtlas, FaPeopleGroup } from "react-icons/fa6";

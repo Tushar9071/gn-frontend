@@ -7,7 +7,7 @@ import Loading from "../../../components/ui/Loading";
 
 const ProjectGroup = () => {
   const [allGroups, setAllGroups] = useState<any[]>([]);
-  const [projectType, setProjectType] = useState<any[]>([]);
+  const [, setProjectType] = useState<any[]>([]);
   const [searchGroups, setSearchGroups] = useState<string>("");
   const [fetchGroupCallApi, fetchGroupsPending, fetchGroupsResponse] =
     useFetchApi();
