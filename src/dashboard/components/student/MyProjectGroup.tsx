@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "../../../components/ui/Card";
 import Dropdown from "../../../components/ui/Dropdown";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useFetchApi } from "../../../hooks/useFetchApi";
 import { CookieService } from "../../../utils/cookies";
 import Loading from "../../../components/ui/Loading";
@@ -10,7 +10,7 @@ const MyProjectGroup = () => {
   // const projectsType = ["Major Project", "Mini Project", "Research Project"];
   const studentsList = ["Student 1", "Student 2", "Student 3"];
   const [selectedType, setSelectedType] = useState("");
-  const [selectedProject, ] = useState("");
+  const [selectedProject] = useState("");
   const [callApi, pending, response] = useFetchApi();
   const [projects, setProjects] = useState([]);
 
@@ -106,7 +106,7 @@ const MyProjectGroup = () => {
 
   return (
     <div className="h-full w-full">
-      <Toaster position="top-right" />
+      {/* <Toaster position="top-right" /> */}
       <div className="flex items-center justify-center text-2xl p-4 font-bold">
         Your Team
       </div>

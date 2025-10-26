@@ -1,9 +1,9 @@
-import { Toaster } from 'react-hot-toast'
+// import { Toaster } from 'react-hot-toast'
 
 const ForgotPassword = () => {
   return (
     <div className="h-screen w-screen bg-gray-100 flex items-center justify-center">
-      <Toaster
+      {/* <Toaster
         position="top-right"
         toastOptions={{
           success: {
@@ -17,7 +17,7 @@ const ForgotPassword = () => {
         }}
         reverseOrder={true}
         
-      />
+      /> */}
       <div className="bg-white w-11/12 flex justify-center p-2 rounded-2xl flex-col gap py-16 shadow-2xl sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-[25%]">
         <h2 className="text-4xl font-semibold text-gray-900 text-center pb-5">
           Forgot Password

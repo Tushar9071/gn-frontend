@@ -3,7 +3,7 @@ import NewProjectType from "./NewProjectType";
 import { useFetchApi } from "../../../hooks/useFetchApi";
 import Loading from "../../../components/ui/Loading";
 import { CookieService } from "../../../utils/cookies";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 // import { Toaster } from "react-hot-toast";
 
 const ProjectType = () => {
@@ -29,7 +29,7 @@ const ProjectType = () => {
   }
   return (
     <div className="w-full h-full p-4">
-      <Toaster position="top-right" toastOptions={{ duration: 1000 }} />
+      {/* <Toaster position="top-right" toastOptions={{ duration: 1000 }} /> */}
       {!isNewTypeAddButton && !editData ? (
         <div className="w-full h-full flex flex-col gap-4">
           <div className="w-full text-center bg-indigo-50 text-indigo-900 p-4 text-xl font-bold rounded flex justify-center items-center">

@@ -1,4 +1,4 @@
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useFetchApi } from "../../../hooks/useFetchApi";
 import { CookieService } from "../../../utils/cookies";
 import React, { useState } from "react";
@@ -75,7 +75,7 @@ const NewProjectType = ({
 
   return (
     <>
-      <Toaster position="top-right" />
+      {/* <Toaster position="top-right" /> */}
       <div className="w-full p-4 bg-indigo-50 flex flex-col gap-16 rounded-lg items-center">
         <div className="text-xl font-semibold text-indigo-800">
           {editData ? "Edit Project Type" : "Add New Project Type"}
